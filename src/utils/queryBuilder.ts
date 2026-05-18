@@ -12,9 +12,9 @@ export interface QueryFields {
 }
 
 const AREA_TERMS: Record<string, string[]> = {
-  frontend: ['Frontend Developer', 'Frontend Engineer'],
-  backend: ['Backend Developer', 'Backend Engineer'],
-  fullstack: ['Full Stack Developer', 'Fullstack Developer'],
+  frontend: ['Frontend', 'Frontend Engineer'],
+  backend: ['Backend', 'Backend Engineer'],
+  fullstack: ['Full Stack', 'Fullstack Engineer'],
 };
 
 const SENIORITY_TERMS: Record<string, string[]> = {
