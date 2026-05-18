@@ -24,6 +24,7 @@ const SENIORITY_TERMS: Record<string, string[]> = {
 };
 
 const JOB_TYPE_TERMS: Record<string, string[]> = {
+  national: ['Brasil', 'Brazil', 'CLT'],
   international: ['remote', 'international'],
 };
 

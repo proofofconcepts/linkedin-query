@@ -22,6 +22,7 @@ const SENIORITY_OPTIONS = [
 
 const JOB_TYPE_OPTIONS = [
   { value: '', label: 'Any' },
+  { value: 'national', label: 'National (Brasil)' },
   { value: 'international', label: 'International / Remote' },
 ];
 
