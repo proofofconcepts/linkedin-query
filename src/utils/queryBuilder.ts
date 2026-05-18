@@ -23,9 +23,9 @@ const SENIORITY_TERMS: Record<string, string[]> = {
   senior: ['Senior', 'Sênior'],
 };
 
-const JOB_TYPE_TERMS: Record<string, string[]> = {
-  national: ['Brasil'],
-  international: ['remote', 'international'],
+const JOB_TYPE_TERMS: Record<string, string> = {
+  national: 'Brasil',
+  international: 'remote',
 };
 
 function parseTerms(raw: string): string[] {
@@ -54,14 +54,16 @@ export function buildQuery(fields: QueryFields): string {
   const keywordTerms = [
     ...parseTerms(fields.keywordsIn),
     ...fields.stacks.filter(Boolean),
-    ...(JOB_TYPE_TERMS[fields.jobType] ?? []),
   ];
+
+  const jobTypeTerm = JOB_TYPE_TERMS[fields.jobType];
 
   const includeParts: string[] = [
     includeGroup(titleTerms),
     includeGroup(parseTerms(fields.companiesIn)),
     includeGroup(keywordTerms),
     includeGroup(SENIORITY_TERMS[fields.seniority] ?? []),
+    jobTypeTerm ? `"${jobTypeTerm}"` : '',
   ].filter((p) => p.length > 0);
 
   const excludeParts: string[] = [
