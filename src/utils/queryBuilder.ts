@@ -5,7 +5,27 @@ export interface QueryFields {
   companiesOut: string;
   keywordsIn: string;
   keywordsOut: string;
+  stacks: string[];
+  area: string;
+  seniority: string;
+  jobType: string;
 }
+
+const AREA_TERMS: Record<string, string[]> = {
+  frontend: ['Frontend Developer', 'Frontend Engineer', 'Front-end Developer', 'UI Developer'],
+  backend: ['Backend Developer', 'Backend Engineer', 'Back-end Developer', 'Server-side Developer'],
+  fullstack: ['Full Stack Developer', 'Fullstack Developer', 'Full-Stack Developer', 'Full Stack Engineer'],
+};
+
+const SENIORITY_TERMS: Record<string, string[]> = {
+  junior: ['Junior', 'Jr', 'Entry Level', 'Entry-Level'],
+  mid: ['Mid Level', 'Mid-Level', 'Pleno'],
+  senior: ['Senior', 'Sr', 'Sênior'],
+};
+
+const JOB_TYPE_TERMS: Record<string, string[]> = {
+  international: ['remote', 'international'],
+};
 
 function parseTerms(raw: string): string[] {
   return raw
@@ -25,10 +45,22 @@ function includeGroup(terms: string[]): string {
 }
 
 export function buildQuery(fields: QueryFields): string {
+  const titleTerms = [
+    ...parseTerms(fields.titlesIn),
+    ...(AREA_TERMS[fields.area] ?? []),
+  ];
+
+  const keywordTerms = [
+    ...parseTerms(fields.keywordsIn),
+    ...fields.stacks.filter(Boolean),
+    ...(JOB_TYPE_TERMS[fields.jobType] ?? []),
+  ];
+
   const includeParts: string[] = [
-    includeGroup(parseTerms(fields.titlesIn)),
+    includeGroup(titleTerms),
     includeGroup(parseTerms(fields.companiesIn)),
-    includeGroup(parseTerms(fields.keywordsIn)),
+    includeGroup(keywordTerms),
+    includeGroup(SENIORITY_TERMS[fields.seniority] ?? []),
   ].filter((p) => p.length > 0);
 
   const excludeParts: string[] = [

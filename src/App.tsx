@@ -2,7 +2,28 @@ import { useState } from 'react';
 import { buildQuery } from './utils/queryBuilder';
 import FieldGroup from './components/FieldGroup';
 import QueryOutput from './components/QueryOutput';
+import StackSelect from './components/StackSelect';
+import RadioGroup from './components/RadioGroup';
 import './App.css';
+
+const AREA_OPTIONS = [
+  { value: '', label: 'Any' },
+  { value: 'frontend', label: 'Frontend' },
+  { value: 'backend', label: 'Backend' },
+  { value: 'fullstack', label: 'Fullstack' },
+];
+
+const SENIORITY_OPTIONS = [
+  { value: '', label: 'Any' },
+  { value: 'junior', label: 'Junior' },
+  { value: 'mid', label: 'Mid-level' },
+  { value: 'senior', label: 'Senior' },
+];
+
+const JOB_TYPE_OPTIONS = [
+  { value: '', label: 'Any' },
+  { value: 'international', label: 'International / Remote' },
+];
 
 function App() {
   const [titlesIn, setTitlesIn] = useState('');
@@ -12,6 +33,12 @@ function App() {
   const [keywordsIn, setKeywordsIn] = useState('');
   const [keywordsOut, setKeywordsOut] = useState('');
 
+  const [stack1, setStack1] = useState('');
+  const [stack2, setStack2] = useState('');
+  const [area, setArea] = useState('');
+  const [seniority, setSeniority] = useState('');
+  const [jobType, setJobType] = useState('');
+
   const query = buildQuery({
     titlesIn,
     titlesOut,
@@ -19,6 +46,10 @@ function App() {
     companiesOut,
     keywordsIn,
     keywordsOut,
+    stacks: [stack1, stack2],
+    area,
+    seniority,
+    jobType,
   });
 
   return (
@@ -33,6 +64,39 @@ function App() {
 
       <main className="app-main">
         <div className="sections">
+          <section className="section">
+            <h2 className="section-title">Quick Filters</h2>
+            <div className="filters">
+              <StackSelect
+                value1={stack1}
+                value2={stack2}
+                onChange1={setStack1}
+                onChange2={setStack2}
+              />
+              <RadioGroup
+                label="Area"
+                name="area"
+                options={AREA_OPTIONS}
+                value={area}
+                onChange={setArea}
+              />
+              <RadioGroup
+                label="Seniority"
+                name="seniority"
+                options={SENIORITY_OPTIONS}
+                value={seniority}
+                onChange={setSeniority}
+              />
+              <RadioGroup
+                label="Job Type"
+                name="jobType"
+                options={JOB_TYPE_OPTIONS}
+                value={jobType}
+                onChange={setJobType}
+              />
+            </div>
+          </section>
+
           <section className="section">
             <h2 className="section-title">Job Titles</h2>
             <div className="section-fields">
@@ -80,7 +144,7 @@ function App() {
                 label="Include"
                 value={keywordsIn}
                 onChange={setKeywordsIn}
-                placeholder="e.g. React, TypeScript, remote"
+                placeholder="e.g. startup, open source"
                 variant="include"
               />
               <FieldGroup
