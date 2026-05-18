@@ -12,19 +12,19 @@ export interface QueryFields {
 }
 
 const AREA_TERMS: Record<string, string[]> = {
-  frontend: ['Frontend Developer', 'Frontend Engineer', 'Front-end Developer', 'UI Developer'],
-  backend: ['Backend Developer', 'Backend Engineer', 'Back-end Developer', 'Server-side Developer'],
-  fullstack: ['Full Stack Developer', 'Fullstack Developer', 'Full-Stack Developer', 'Full Stack Engineer'],
+  frontend: ['Frontend Developer', 'Frontend Engineer'],
+  backend: ['Backend Developer', 'Backend Engineer'],
+  fullstack: ['Full Stack Developer', 'Fullstack Developer'],
 };
 
 const SENIORITY_TERMS: Record<string, string[]> = {
-  junior: ['Junior', 'Jr', 'Entry Level', 'Entry-Level'],
-  mid: ['Mid Level', 'Mid-Level', 'Pleno'],
-  senior: ['Senior', 'Sr', 'Sênior'],
+  junior: ['Junior', 'Entry Level'],
+  mid: ['Mid Level', 'Pleno'],
+  senior: ['Senior', 'Sênior'],
 };
 
 const JOB_TYPE_TERMS: Record<string, string[]> = {
-  national: ['Brasil', 'Brazil', 'CLT'],
+  national: ['Brasil'],
   international: ['remote', 'international'],
 };
 
